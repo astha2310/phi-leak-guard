@@ -5,12 +5,34 @@ A local web app that detects and masks Protected Health Information (PHI) in cli
 > **In plain words:** Doctors and nurses sometimes paste patient notes into AI chatbots to get a quick summary. If that note has the patient's name or Social Security number in it, private information leaks out. This app works like a black marker: it crosses out the private details *first*, and only then lets the AI read the note.
 
 **Built with:** Python · Microsoft Presidio · spaCy · Streamlit · Ollama (local AI, `qwen2.5:3b`)
+
 **Cost:** free. Everything runs on your own computer.
 
 > **In plain words:** These are the free tools it's made from. Nothing gets sent to the internet, not even to the AI, because the AI runs right on the laptop.
 
 > ⚠️ Demo project. Use fake patient data only. This is not a certified HIPAA compliance tool.
 
+---
+
+## Screenshots
+
+**1. Paste a note and clean it**
+
+![A fake patient note is pasted in and the app finds 13 private details](1-clean.png)
+
+> **In plain words:** You paste a note, click one button, and every private detail turns into a label like `<PERSON>` or `<US_SSN>`.
+
+**2. See what was hidden, then ask the AI**
+
+![Table of hidden detail types with confidence scores, and the AI's one-sentence answer](2-hidden.png)
+
+> **In plain words:** The table lists *what kind* of info was hidden and how sure the app was (1.0 = 100% sure). The AI still answers the medical question without knowing who the patient is.
+
+**3. Proof of what the AI saw, and the audit log**
+
+![The exact masked text the AI received, and the audit log of every check](3-ai-audit.png)
+
+> **In plain words:** You can open the box and see *exactly* what the AI received: only labels, no real details. The logbook below records every check, but never the private info itself.
 ---
 
 ## Why I built it
