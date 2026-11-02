@@ -33,6 +33,7 @@ A local web app that detects and masks Protected Health Information (PHI) in cli
 ![The exact masked text the AI received, and the audit log of every check](3-ai-audit.png)
 
 > **In plain words:** You can open the box and see *exactly* what the AI received: only labels, no real details. The logbook below records every check, but never the private info itself.
+
 ---
 
 ## Why I built it
