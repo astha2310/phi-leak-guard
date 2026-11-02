@@ -86,22 +86,22 @@ Covers 7 of HIPAA's 18 Safe Harbor identifier types.
 
 **Input (fake note):**
 ```
-Patient John Carter, MRN 00482913, born 03/14/1962, lives in Mesa, Arizona. Seen on 10/28/2026 for chest pain ...
+Patient John Carter, MRN 00482913, born 03/14/1962, lives in Mesa, Arizona. Seen on 10/28/2026 for chest pain that started 2 days ago while climbing stairs. Pain is pressure-like, lasts about 10 minutes and goes away with rest. History of high blood pressure and high cholesterol. Takes lisinopril daily. ECG showed no acute changes. Plan: stress test this week, start aspirin 81 mg, follow up in 7 days. Call 480-555-0147 or email john.carter@example.com. SSN 512-48-3721.
 ```
 
 **What the AI receives:**
 ```
-Patient <PERSON>, <MRN>, born <DATE_TIME>, lives in <LOCATION>, <LOCATION>. Seen on <DATE_TIME> for chest pain ...
+Patient <PERSON>, <MRN>, born <DATE_TIME>, lives in <LOCATION>, <LOCATION>. Seen on <DATE_TIME> for chest pain that started <DATE_TIME> while climbing stairs. Pain is pressure-like, lasts <DATE_TIME> and goes away with rest. History of high blood pressure and high cholesterol. Takes lisinopril daily. ECG showed no acute changes. Plan: stress test <DATE_TIME>, start aspirin 81 mg, follow up in <DATE_TIME>. Call <PHONE_NUMBER> or email <EMAIL_ADDRESS>. SSN <US_SSN>.
 ```
 
-**AI answer:** "The patient came in for chest pain that started while climbing stairs ..."
+**AI answer:** "The patient came in for chest pain that started while climbing stairs and is suspected of being related to their cardiovascular history."
 
 **Audit log row:**
 | time | user | items_hidden | types_hidden |
 |---|---|---|---|
-| 2026-11-02 11:54:47 | nurse.demo | 8 | DATE_TIME, EMAIL_ADDRESS, LOCATION, MRN, PERSON, PHONE_NUMBER, US_SSN |
+| 2026-11-02 12:00:22 | nurse.demo | 13 | DATE_TIME, EMAIL_ADDRESS, LOCATION, MRN, PERSON, PHONE_NUMBER, US_SSN |
 
-> **In plain words:** The AI still understood the medical part (chest pain), but it never learned *who* the patient was. The logbook shows a nurse checked a note and 8 private details were hidden, without writing those details down again.
+> **In plain words:** The AI still understood the medical part (chest pain on the stairs, blood pressure history), but it never learned *who* the patient was. The logbook shows 13 private details were hidden, without writing them down again. Notice that "2 days ago" and "10 minutes" got hidden too, which is the over-masking problem listed below. And the AI's "suspected" heart link was its own guess, which is why a clinician must check its answers.
 
 ---
 
